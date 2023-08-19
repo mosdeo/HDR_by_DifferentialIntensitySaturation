@@ -3,13 +3,6 @@ import numpy as np
 
 # THE DIFFERENTIAL GRAY-LEVELS HISTOGRAM EQUALIZATION
 
-# 計算累積分布函數
-def cdf(hist):
-    cdf = np.cumsum(hist)
-    cdf = (cdf - cdf.min()) / (cdf.max() - cdf.min()) * 255
-    cdf = cdf.astype(np.uint8)
-    return cdf
-
 def diff_graylevel_hist(single_channel_img):
     gray = single_channel_img
     # 垂直 & 水平方向的差分
@@ -41,10 +34,10 @@ def Transformation(diff_img, differential_histogram):
     # 計算映射函數
     c_r = np.zeros(len(differential_histogram))
     for i in range(len(differential_histogram)):
-        c_r[i] = np.sum(differential_histogram[:i+1]) / np.sum(differential_histogram)
+        c_r[i] = np.sum(differential_histogram[:i+1]) / np.sum(differential_histogram[:256])
     c_r = (c_r * 255).astype(np.uint8)
 
-    # 將累積分布函數映射到原圖
+    # 差分圖映射到新圖
     output = np.zeros_like(diff_img, dtype=np.uint8)
     for i in range(diff_img.shape[0]):
         for j in range(diff_img.shape[1]):
@@ -69,6 +62,7 @@ def DHE(img):
 if __name__ == "__main__":
     # Load the image
     img = cv.imread('sample.jpeg')
+    # img = cv.GaussianBlur(img, (7, 7), 0)
     img_dhe = DHE(img)
 
     # Show the image

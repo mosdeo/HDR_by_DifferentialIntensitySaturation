@@ -1,12 +1,6 @@
 import cv2 as cv
 import numpy as np
-
-# 計算累積分布函數
-def cdf(hist):
-    cdf = np.cumsum(hist)
-    cdf = (cdf - cdf.min()) / (cdf.max() - cdf.min()) * 255
-    cdf = cdf.astype(np.uint8)
-    return cdf
+from cdf import cdf
 
 def he_intensity(img):
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
@@ -20,7 +14,7 @@ def he_intensity(img):
     # 計算映射函數
     cdf_v = cdf(hist)
 
-    # 將累積分布函數映射到原圖
+    # 原圖映射到新圖
     img_he = np.zeros_like(hsv).astype(np.uint8)
     for i in range(hsv.shape[0]):
         for j in range(hsv.shape[1]):
