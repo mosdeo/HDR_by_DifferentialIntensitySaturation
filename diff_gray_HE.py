@@ -1,6 +1,15 @@
 import cv2 as cv
 import numpy as np
 
+# THE DIFFERENTIAL GRAY-LEVELS HISTOGRAM EQUALIZATION
+
+# 計算累積分布函數
+def cdf(hist):
+    cdf = np.cumsum(hist)
+    cdf = (cdf - cdf.min()) / (cdf.max() - cdf.min()) * 255
+    cdf = cdf.astype(np.uint8)
+    return cdf
+
 def diff_graylevel_hist(single_channel_img):
     gray = single_channel_img
     # 垂直 & 水平方向的差分
@@ -14,41 +23,55 @@ def diff_graylevel_hist(single_channel_img):
             dVertically[i, j] = gray[i+1, j+1] + 2*gray[i, j+1] + gray[i-1, j+1] - gray[i+1, j-1] - 2*gray[i, j-1] - gray[i-1, j-1]
     
     # differential gray-levels of the input image
-    d = np.sqrt(dHorizontally**2 + dVertically**2).astype(np.int64)
-
-    # Scale the d to 0~255
-    d = (d - d.min()) / (d.max() - d.min()) * 255
-    d = d.astype(np.uint8)
+    diff_img = np.sqrt(dHorizontally**2 + dVertically**2).astype(np.int64)
     
     # eq. 2
     # The differential gray-level histogram
-    diff_graylevel_hist = np.zeros(256).astype(np.int64)
+    # 計算各階出現次數
+    differential_histogram = np.zeros(diff_img.max()+1)
     for i in range(gray.shape[0]):
         for j in range(gray.shape[1]):
-            diff_graylevel_hist[d[i, j]] += 1
-    
-    return diff_graylevel_hist
+            differential_histogram[diff_img[i, j]] += 1
 
-def HDR_by_DifferentialIntensitySaturation(img):
+    return diff_img, differential_histogram
+
+def Transformation(diff_img, differential_histogram):
+    differential_histogram = differential_histogram.astype(np.int64)
+
+    # 計算映射函數
+    c_r = np.zeros(len(differential_histogram))
+    for i in range(len(differential_histogram)):
+        c_r[i] = np.sum(differential_histogram[:i+1]) / np.sum(differential_histogram)
+    c_r = (c_r * 255).astype(np.uint8)
+
+    # 將累積分布函數映射到原圖
+    output = np.zeros_like(diff_img, dtype=np.uint8)
+    for i in range(diff_img.shape[0]):
+        for j in range(diff_img.shape[1]):
+            output[i, j] = c_r[diff_img[i, j]]
+
+    return output
+
+def DHE(img):
     # to HSV
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-    
-    # Calculate the DIHE and DSHE
-    DIHE = diff_graylevel_hist(hsv[:, :, 2])
-    DSHE = diff_graylevel_hist(hsv[:, :, 1])
+    diff_img, differential_histogram = diff_graylevel_hist(hsv[:, :, 2])
 
-    cv.imshow('DIHE', DIHE.astype(np.float64))
-    cv.imshow('DSHE', DSHE.astype(np.float64))
-    cv.waitKey(0)   
+    # Plot the differential gray-level histogram
+    import matplotlib.pyplot as plt
+    plt.bar(np.arange(len(differential_histogram)), differential_histogram)
+    # 不要暫停
+    plt.show(block=False)
 
-    return img
+    output = Transformation(diff_img, differential_histogram)
+    return output
 
 if __name__ == "__main__":
     # Load the image
-    gray_img = cv.imread('sample.jpeg', cv.IMREAD_GRAYSCALE)
-    DH = diff_graylevel_hist(gray_img)
-    
-    # Plot the differential gray-level histogram
-    import matplotlib.pyplot as plt
-    plt.bar(np.arange(256), DH)
-    plt.show()
+    img = cv.imread('sample.jpeg')
+    img_dhe = DHE(img)
+
+    # Show the image
+    cv.imshow('img', img)
+    cv.imshow('img_dhe', img_dhe)
+    cv.waitKey(0)
