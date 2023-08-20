@@ -1,4 +1,3 @@
-import cv2 as cv
 import numpy as np
 
 def local_correlation_of_intensity_saturation(s, v):
@@ -23,6 +22,8 @@ def local_correlation_of_intensity_saturation(s, v):
             var_y = np.sum(s_block**2)
             corr[i, j] = cov_xy / np.sqrt(var_x * var_y)
     return corr
+
+# TODO: NumPy Vectorlize Acceleration
 
 # if __name__ == "__main__":
 #     # Load the image
