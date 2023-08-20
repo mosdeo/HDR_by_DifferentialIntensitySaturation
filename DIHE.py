@@ -16,6 +16,13 @@ def DIHE(img):
     # 計算各階出現次數
     # 不要用 np.histogram_bin_edges, 因為會有小數點
     diff_intensity_hist = np.bincount(diff_img.flatten(), minlength=diff_img.max()+1)
+
+    # import matplotlib.pyplot as plt
+    # # size 750*250
+    # plt.figure(figsize=(7.5, 2.5))
+    # plt.plot(diff_intensity_hist, color='b')
+    # plt.show()
+
     transferred_v = transformation(v, diff_intensity_hist)
     return cv.cvtColor(cv.merge([h, s, transferred_v]), cv.COLOR_HSV2BGR)
 

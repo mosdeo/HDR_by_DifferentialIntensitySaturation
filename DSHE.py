@@ -17,6 +17,15 @@ def DSHE(img):
     prod_img = diff_img * corr_IS
     prod_img = prod_img.astype(np.int64)
 
+    # Auto resize width to 750, but keep ratio, auto adjust height
+    # height = int(750 * img.shape[0] / img.shape[1])
+    # _corr_IS = cv.resize(corr_IS , (750, height), interpolation=cv.INTER_CUBIC)
+    # # Scale to 0~255
+    # _corr_IS = (_corr_IS / _corr_IS.max() * 255).astype(np.uint8)
+    # cv.imshow('corr_IS', _corr_IS)
+    # cv.waitKey(0)
+    # cv.imwrite('pictures/local_correlation_of_intensity_saturation.png', _corr_IS)
+
     # eq. 2
     # The differential gray-level histogram
     # 計算各階出現次數

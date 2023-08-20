@@ -16,6 +16,8 @@ def he_intensity(img):
 
     # 畫出累積分布函數
     # import matplotlib.pyplot as plt
+    # # size 750*250
+    # plt.figure(figsize=(7.5, 2.5))
     # plt.plot(cdf_v, color='b')
     # plt.show()
 

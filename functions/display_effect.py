@@ -8,6 +8,7 @@ def display_effect(img_before, img_after, title):
     # 左下：原圖的直方圖
     # 右下：處理過的直方圖
     fig, ax = plt.subplots(2, 2)
+    fig.set_size_inches(12, 7)
     fig.suptitle(title)
     ax[0, 0].imshow(cv.cvtColor(img_before, cv.COLOR_BGR2RGB))
     ax[0, 0].set_title('Before image')
@@ -17,5 +18,6 @@ def display_effect(img_before, img_after, title):
     ax[1, 0].set_title('Before histogram')
     ax[1, 1].hist(cv.cvtColor(img_after, cv.COLOR_BGR2GRAY).flatten(), bins=256)
     ax[1, 1].set_title('After histograms')
+    # plt.show()
     plt.show(block=False)
     plt.pause(0.1)
