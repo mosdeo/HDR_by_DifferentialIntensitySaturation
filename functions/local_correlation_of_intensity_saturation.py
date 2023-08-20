@@ -1,6 +1,8 @@
 import numpy as np
+import time
 
 def local_correlation_of_intensity_saturation(s, v):
+    start_time = time.time()
     # Gobally mean
     # s_mean = s.mean()
     # v_mean = v.mean()
@@ -21,11 +23,13 @@ def local_correlation_of_intensity_saturation(s, v):
             var_x = np.sum(v_block**2)
             var_y = np.sum(s_block**2)
             corr[i, j] = cov_xy / np.sqrt(var_x * var_y)
+    print('local_correlation_of_intensity_saturation: {} seconds'.format(time.time() - start_time))
     return corr
 
 # TODO: NumPy Vectorlize Acceleration
 
 def local_correlation_of_intensity_saturation_vectorlize(s, v):
+    start_time = time.time()
     s = s.astype(np.float64)
     v = v.astype(np.float64)
 
@@ -96,6 +100,7 @@ def local_correlation_of_intensity_saturation_vectorlize(s, v):
 
     around25_corr = around25_cov_xy / np.sqrt(around25_var_x * around25_var_y)
 
+    print('local_correlation_of_intensity_saturation_vectorlize: {} seconds'.format(time.time() - start_time))
     return around25_corr[2:-2, 2:-2]
 
 # if __name__ == "__main__":
