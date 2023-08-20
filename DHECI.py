@@ -60,4 +60,4 @@ if __name__ == "__main__":
 
         display_effect(img, img_DHECI, sample)
         cv.waitKey(1)
-    cv.waitKey(0)
+    # cv.waitKey(0)
