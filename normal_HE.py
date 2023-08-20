@@ -45,9 +45,9 @@ def he_intensity_and_saturation(img):
     img_he = np.zeros_like(img).astype(np.uint8)
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
-            img_he[i, j, 0] = h[i, j, 0]
-            img_he[i, j, 1] = cdf_s[s[i, j, 1]]
-            img_he[i, j, 2] = cdf_v[v[i, j, 2]]
+            img_he[i, j, 0] = h[i, j]
+            img_he[i, j, 1] = cdf_s[s[i, j]]
+            img_he[i, j, 2] = cdf_v[v[i, j]]
 
     img_he = cv.cvtColor(img_he, cv.COLOR_HSV2BGR)
     return img_he
