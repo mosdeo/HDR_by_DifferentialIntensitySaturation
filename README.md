@@ -1,8 +1,10 @@
 # **HDR_by_DifferentialIntensitySaturation**
 
+進度：在暗光夜景有比較好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)並未復現出來。
+
 DSHE: Differential saturation histogram equalization
 
-![result](pictures/main.png)
+![result_myself_nightshot](pictures/result_myself_nightshot.jpeg.png)
 
 主要是復現這篇論文
 
