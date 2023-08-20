@@ -20,4 +20,6 @@ def display_effect(img_before, img_after, title):
     ax[1, 1].set_title('After histograms')
     # plt.show()
     plt.show(block=False)
-    plt.pause(0.1)
+    # Save the figure
+    plt.savefig('pictures/result_{}.png'.format(title))
+    # plt.pause(0.1)
