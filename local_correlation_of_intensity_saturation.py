@@ -2,18 +2,17 @@ import cv2 as cv
 import numpy as np
 
 def local_correlation_of_intensity_saturation(s, v):
-    avg_saturation = np.mean(s)
-    avg_intensity = np.mean(v)
-
+    s_mean = s.mean()
+    v_mean = v.mean()
     corr = np.zeros_like(v).astype(np.float64)
     for i in range(2, v.shape[0]-2):
         for j in range(2, v.shape[1]-2):
-            cov_xy = np.sum((v[i-2:i+3, j-2:j+3] - avg_intensity) * (s[i-2:i+3, j-2:j+3] - avg_saturation)) / 25
-            var_x = np.sum((v[i-2:i+3, j-2:j+3] - avg_intensity)**2) / 25
-            var_y = np.sum((s[i-2:i+3, j-2:j+3] - avg_saturation)**2) / 25
+            v_block = v[i-2:i+3, j-2:j+3] - v_mean
+            s_block = s[i-2:i+3, j-2:j+3] - s_mean
+            cov_xy = np.sum(v_block * s_block)
+            var_x = np.sum(v_block**2)
+            var_y = np.sum(s_block**2)
             corr[i, j] = cov_xy / np.sqrt(var_x * var_y)
-            # corr[i, j] = np.sum((v[i-2:i+3, j-2:j+3] - avg_intensity) * (s[i-2:i+3, j-2:j+3] - avg_saturation)) / np.sqrt(np.sum((v[i-2:i+3, j-2:j+3] - avg_intensity)**2) * np.sum((s[i-2:i+3, j-2:j+3] - avg_saturation)**2))
-    
     return corr
 
 # if __name__ == "__main__":
