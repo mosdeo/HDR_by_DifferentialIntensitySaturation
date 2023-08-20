@@ -1,29 +1,19 @@
 import cv2 as cv
 import numpy as np
+from diff2D import diff2D
 
 # THE DIFFERENTIAL GRAY-LEVELS HISTOGRAM EQUALIZATION
 
 def diff_graylevel_hist(single_channel_img):
-    gray = single_channel_img
-    # 垂直 & 水平方向的差分
-    dHorizontally = np.zeros_like(gray).astype(np.int64)
-    dVertically = np.zeros_like(gray).astype(np.int64)
-
-    # eq. 1
-    for i in range(1, gray.shape[0]-1):
-        for j in range(1, gray.shape[1]-1):
-            dHorizontally[i, j] = gray[i+1, j+1] + 2*gray[i+1, j] + gray[i+1, j-1] - gray[i-1, j+1] - 2*gray[i-1, j] - gray[i-1, j-1]
-            dVertically[i, j] = gray[i+1, j+1] + 2*gray[i, j+1] + gray[i-1, j+1] - gray[i+1, j-1] - 2*gray[i, j-1] - gray[i-1, j-1]
-    
     # differential gray-levels of the input image
-    diff_img = np.sqrt(dHorizontally**2 + dVertically**2).astype(np.int64)
+    diff_img = diff2D(single_channel_img)
     
     # eq. 2
     # The differential gray-level histogram
     # 計算各階出現次數
     differential_histogram = np.zeros(diff_img.max()+1)
-    for i in range(gray.shape[0]):
-        for j in range(gray.shape[1]):
+    for i in range(single_channel_img.shape[0]):
+        for j in range(single_channel_img.shape[1]):
             differential_histogram[diff_img[i, j]] += 1
 
     return diff_img, differential_histogram
