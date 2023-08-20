@@ -1,10 +1,9 @@
 import cv2 as cv
 import numpy as np
 
-def local_correlation_of_intensity_saturation(img):
-    _, s, v = cv.split(cv.cvtColor(img, cv.COLOR_BGR2HSV))
-    avg_intensity = np.mean(v)
+def local_correlation_of_intensity_saturation(s, v):
     avg_saturation = np.mean(s)
+    avg_intensity = np.mean(v)
 
     corr = np.zeros_like(v).astype(np.float64)
     for i in range(2, v.shape[0]-2):
