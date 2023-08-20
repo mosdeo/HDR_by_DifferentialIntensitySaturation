@@ -37,8 +37,8 @@ def Transformation(diff_img, differential_histogram):
 
 def DHE(img):
     # to HSV
-    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-    diff_img, differential_histogram = diff_graylevel_hist(hsv[:, :, 2])
+    _, _, v = cv.split(cv.cvtColor(img, cv.COLOR_BGR2HSV))
+    diff_img, differential_histogram = diff_graylevel_hist(v)
 
     # Plot the differential gray-level histogram
     import matplotlib.pyplot as plt

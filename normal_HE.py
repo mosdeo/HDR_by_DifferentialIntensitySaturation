@@ -26,28 +26,28 @@ def he_intensity(img):
     return img_he
 
 def he_intensity_and_saturation(img):
-    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    h, s, v = cv.split(cv.cvtColor(img, cv.COLOR_BGR2HSV))
     
     # 計算各階亮度出現次數
     # 計算各階飽和度出現次數
     hist_v = np.zeros(256).astype(np.int64)
     hist_s = np.zeros(256).astype(np.int64)
-    for i in range(hsv.shape[0]):
-        for j in range(hsv.shape[1]):
-            hist_v[hsv[i, j, 2]] += 1
-            hist_s[hsv[i, j, 1]] += 1
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            hist_v[v[i, j]] += 1
+            hist_s[s[i, j]] += 1
     
     # 計算映射函數
     cdf_v = cdf(hist_v)
     cdf_s = cdf(hist_s)
 
     # 將累積分布函數映射到原圖
-    img_he = np.zeros_like(hsv).astype(np.uint8)
-    for i in range(hsv.shape[0]):
-        for j in range(hsv.shape[1]):
-            img_he[i, j, 2] = cdf_v[hsv[i, j, 2]]
-            img_he[i, j, 1] = cdf_s[hsv[i, j, 1]]
-            img_he[i, j, 0] = hsv[i, j, 0]
+    img_he = np.zeros_like(img).astype(np.uint8)
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            img_he[i, j, 0] = h[i, j, 0]
+            img_he[i, j, 1] = cdf_s[s[i, j, 1]]
+            img_he[i, j, 2] = cdf_v[v[i, j, 2]]
 
     img_he = cv.cvtColor(img_he, cv.COLOR_HSV2BGR)
     return img_he
