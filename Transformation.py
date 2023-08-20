@@ -24,9 +24,9 @@ def Transformation(someone_color_plane , differential_histogram):
     transferred_plane = np.zeros_like(someone_color_plane, dtype=np.uint8)
     for i in range(someone_color_plane.shape[0]):
         for j in range(someone_color_plane.shape[1]):
-            if someone_color_plane[i, j] > 255:
-                someone_color_plane[i, j] = 255
-                print(someone_color_plane[i, j])
+            # if someone_color_plane[i, j] > 255:
+            #     someone_color_plane[i, j] = 255
+            #     print(someone_color_plane[i, j])
             transferred_plane[i, j] = t_r[someone_color_plane[i, j]]
 
     return transferred_plane
