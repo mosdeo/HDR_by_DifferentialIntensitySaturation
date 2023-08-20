@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 from diff2D import diff2D
 from Transformation import Transformation
+from display_effect import display_effect
 
 # THE DIFFERENTIAL INTENSITY HISTOGRAM EQUALIZATION
 
@@ -29,8 +30,10 @@ if __name__ == "__main__":
         # cv.imshow('img, {}'.format(sample), img)
         # cv.imshow('DIHE, {}'.format(sample), img_DIHE)
 
-        # 合併顯示，左右對照
-        img_concat = np.concatenate((img, img_DIHE), axis=1)
-        cv.imshow('Original VS DIHE, {}'.format(sample), img_concat)
+        # # 合併顯示，左右對照
+        # img_concat = np.concatenate((img, img_DIHE), axis=1)
+        # cv.imshow('Original VS DSIE, {}'.format(sample), img_concat)
+
+        display_effect(img, img_DIHE, sample)
         cv.waitKey(1)
     cv.waitKey(0)
