@@ -6,7 +6,7 @@
 
 Nakai, Keita, Yoshikatsu Hoshi, and Akira Taguchi. "Color image contrast enhacement method based on differential intensity/saturation gray-levels histograms."  *2013 International Symposium on Intelligent Signal Processing and Communication Systems* . IEEE, 2013.
 
-進度：在暗光夜景有比較好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)復現的效果，並未像論文中那麼好。
+進度：在自己拍的暗光夜景有好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)復現的效果，並未像論文中那麼好。
 
 ---
 
@@ -40,4 +40,34 @@ Nakai, Keita, Yoshikatsu Hoshi, and Akira Taguchi. "Color image contrast enhacem
 # eq. 7
 alpha = 0.5
 diff_hist_color = alpha * diff_saturation_hist + (1 - alpha) * diff_intensity_hist
+```
+
+---
+
+向量化加速：local_correlation_of_intensity_saturation.py
+
+無向量化：
+
+```python
+def local_correlation_of_intensity_saturation(s, v):
+```
+
+```bash
+local_correlation_of_intensity_saturation: 19.283746004104614 seconds
+local_correlation_of_intensity_saturation: 2.2866947650909424 seconds
+local_correlation_of_intensity_saturation: 4.0586559772491455 seconds
+```
+
+向量化：
+
+```python
+def local_correlation_of_intensity_saturation_vectorlize(s, v):
+```
+
+```bash
+RuntimeWarning: invalid value encountered in divide
+  around25_corr = around25_cov_xy / np.sqrt(around25_var_x * around25_var_y)
+local_correlation_of_intensity_saturation_vectorlize: 0.6869769096374512 seconds
+local_correlation_of_intensity_saturation_vectorlize: 0.06972908973693848 seconds
+local_correlation_of_intensity_saturation_vectorlize: 0.1213228702545166 seconds
 ```
