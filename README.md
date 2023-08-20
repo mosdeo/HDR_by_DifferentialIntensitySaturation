@@ -6,7 +6,7 @@
 
 Nakai, Keita, Yoshikatsu Hoshi, and Akira Taguchi. "Color image contrast enhacement method based on differential intensity/saturation gray-levels histograms."  *2013 International Symposium on Intelligent Signal Processing and Communication Systems* . IEEE, 2013.
 
-進度：在暗光夜景有比較好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)並未復現出來。
+進度：在暗光夜景有比較好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)復現的效果，並未像論文中那麼好。
 
 ---
 
