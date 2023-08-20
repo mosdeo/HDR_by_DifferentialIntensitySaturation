@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def Transformation(someone_color_plane , differential_histogram):
+def transformation(someone_color_plane , differential_histogram):
     differential_histogram = differential_histogram.astype(np.int64)
 
     # 計算映射轉移函數, eq. 3
     c_r = np.cumsum(differential_histogram) / np.sum(differential_histogram[:256])
-    plt.plot(255 * c_r)
-    plt.show(block=False)
+    # plt.plot(255 * c_r)
+    # plt.show(block=False)
 
     t_r = (255 * c_r).astype(np.uint8) # 論文中寫的
 

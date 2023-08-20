@@ -1,16 +1,16 @@
 import cv2 as cv
 import numpy as np
-from diff2D import diff2D
-from Transformation import Transformation
-from local_correlation_of_intensity_saturation import local_correlation_of_intensity_saturation
-from display_effect import display_effect
+from functions.diff2d import diff2d
+from functions.transformation import transformation
+from functions.display_effect import display_effect
+from functions.local_correlation_of_intensity_saturation import local_correlation_of_intensity_saturation
 
 # THE DIFFERENTIAL SATURATION HISTOGRAM EQUALIZATION
 
 def DSHE(img):
     # to HSV
     h, s, v = cv.split(cv.cvtColor(img, cv.COLOR_BGR2HSV))
-    diff_img = diff2D(s)
+    diff_img = diff2d(s)
 
     corr_IS = local_correlation_of_intensity_saturation(s, v)
     corr_IS = np.abs(corr_IS)
@@ -22,7 +22,7 @@ def DSHE(img):
     # 計算各階出現次數
     # 不要用 np.histogram_bin_edges, 因為會有小數點
     diff_saturation_hist = np.bincount(prod_img.flatten(), minlength=prod_img.max()+1)
-    transferred_v = Transformation(v, diff_saturation_hist)
+    transferred_v = transformation(v, diff_saturation_hist)
     return cv.cvtColor(cv.merge([h, s, transferred_v]), cv.COLOR_HSV2BGR)
 
 if __name__ == "__main__":

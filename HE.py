@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-from cdf import cdf
+from functions.cdf import cdf
 
 def he_intensity(img):
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)

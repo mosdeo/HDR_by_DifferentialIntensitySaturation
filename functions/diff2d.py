@@ -1,8 +1,7 @@
-import cv2 as cv
 import numpy as np
 
 # img must be a single channel image
-def diff2D(img):
+def diff2d(img):
     if len(img.shape) != 2:
         raise Exception('The input image must be a single channel image.')
     

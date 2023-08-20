@@ -1,22 +1,22 @@
 import cv2 as cv
 import numpy as np
-from diff2D import diff2D
-from Transformation import Transformation
-from display_effect import display_effect
+from functions.diff2d import diff2d
+from functions.transformation import transformation
+from functions.display_effect import display_effect
 
 # THE DIFFERENTIAL INTENSITY HISTOGRAM EQUALIZATION
 
 def DIHE(img):
     # to HSV
     h, s, v = cv.split(cv.cvtColor(img, cv.COLOR_BGR2HSV))
-    diff_img = diff2D(v)
+    diff_img = diff2d(v)
 
      # eq. 2
     # The differential gray-level histogram
     # 計算各階出現次數
     # 不要用 np.histogram_bin_edges, 因為會有小數點
     diff_intensity_hist = np.bincount(diff_img.flatten(), minlength=diff_img.max()+1)
-    transferred_v = Transformation(v, diff_intensity_hist)
+    transferred_v = transformation(v, diff_intensity_hist)
     return cv.cvtColor(cv.merge([h, s, transferred_v]), cv.COLOR_HSV2BGR)
 
 if __name__ == "__main__":
