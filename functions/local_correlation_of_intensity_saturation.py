@@ -99,6 +99,7 @@ def local_correlation_of_intensity_saturation_vectorlize(s, v):
     around25_var_y = np.sum(around25_s**2, axis=2)
 
     around25_corr = around25_cov_xy / np.sqrt(around25_var_x * around25_var_y)
+    around25_corr = np.nan_to_num(around25_corr)
 
     print('local_correlation_of_intensity_saturation_vectorlize: {} seconds'.format(time.time() - start_time))
     return around25_corr[2:-2, 2:-2]
