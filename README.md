@@ -2,11 +2,14 @@
 
 ![result_myself_nightshot](pictures/result_myself_nightshot.jpeg.png)
 
-主要是復現這篇論文
+主要是復現這篇論文：
 
 Nakai, Keita, Yoshikatsu Hoshi, and Akira Taguchi. "Color image contrast enhacement method based on differential intensity/saturation gray-levels histograms."  *2013 International Symposium on Intelligent Signal Processing and Communication Systems* . IEEE, 2013.
 
-進度：在自己拍的暗光夜景有好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)復現的效果，並未像論文中那麼好。
+進度：
+
+- 在自己拍的暗光夜景，有好的效果
+- 原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)復現的效果，並未像論文中那麼好，實際效果偏向過曝。
 
 ---
 
@@ -44,7 +47,7 @@ diff_hist_color = alpha * diff_saturation_hist + (1 - alpha) * diff_intensity_hi
 
 ---
 
-向量化加速：local_correlation_of_intensity_saturation.py
+### 向量化加速：local_correlation_of_intensity_saturation.py
 
 無向量化：
 
@@ -52,16 +55,18 @@ diff_hist_color = alpha * diff_saturation_hist + (1 - alpha) * diff_intensity_hi
 def local_correlation_of_intensity_saturation(s, v):
 ```
 
-```bash
-local_correlation_of_intensity_saturation: 19.283746004104614 seconds
-local_correlation_of_intensity_saturation: 2.2866947650909424 seconds
-local_correlation_of_intensity_saturation: 4.0586559772491455 seconds
-```
-
 向量化：
 
 ```python
 def local_correlation_of_intensity_saturation_vectorlize(s, v):
+```
+
+三個樣本的時間比較：
+
+```bash
+local_correlation_of_intensity_saturation: 19.283746004104614 seconds
+local_correlation_of_intensity_saturation: 2.2866947650909424 seconds
+local_correlation_of_intensity_saturation: 4.0586559772491455 seconds
 ```
 
 ```bash
@@ -71,3 +76,5 @@ local_correlation_of_intensity_saturation_vectorlize: 0.6869769096374512 seconds
 local_correlation_of_intensity_saturation_vectorlize: 0.06972908973693848 seconds
 local_correlation_of_intensity_saturation_vectorlize: 0.1213228702545166 seconds
 ```
+
+註：向量化由於統一除法，有除以 0 的 RuntimeWarning，但已用```np.nan_to_num```善後，不影響結果。
