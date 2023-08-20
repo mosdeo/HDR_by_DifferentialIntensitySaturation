@@ -1,14 +1,12 @@
 # **HDR_by_DifferentialIntensitySaturation**
 
-進度：在暗光夜景有比較好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)並未復現出來。
-
-DSHE: Differential saturation histogram equalization
-
 ![result_myself_nightshot](pictures/result_myself_nightshot.jpeg.png)
 
 主要是復現這篇論文
 
 Nakai, Keita, Yoshikatsu Hoshi, and Akira Taguchi. "Color image contrast enhacement method based on differential intensity/saturation gray-levels histograms."  *2013 International Symposium on Intelligent Signal Processing and Communication Systems* . IEEE, 2013.
+
+進度：在暗光夜景有比較好的效果，但是原論文樣本上[[1]](pictures/result_bridge.jpg.png)[[2]](pictures/result_cherryblossom.jpg.png)並未復現出來。
 
 ---
 
@@ -36,4 +34,10 @@ Nakai, Keita, Yoshikatsu Hoshi, and Akira Taguchi. "Color image contrast enhacem
 
 ---
 
-第四步：再復現使用到空間＆亮度＆飽和度訊息的 The DHE for color images (DHECI)。DHECI.py
+第四步：以互補比例混合 DIHE & DSHE => The DHE for color images (DHECI)。DHECI.py
+
+```python
+# eq. 7
+alpha = 0.5
+diff_hist_color = alpha * diff_saturation_hist + (1 - alpha) * diff_intensity_hist
+```
