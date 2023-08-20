@@ -63,7 +63,9 @@ def DSE(img):
 
 if __name__ == "__main__":
     # Load the image
-    img = cv.imread('sample.jpeg')
+    # img = cv.imread('samples/myself_nightshot.jpeg')
+    # img = cv.imread('samples/bridge.jpg')
+    img = cv.imread('samples/cherryblossom.jpg')
     # img = cv.GaussianBlur(img, (7, 7), 0)
     img_dse = DSE(img)
 

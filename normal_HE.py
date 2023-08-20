@@ -54,7 +54,9 @@ def he_intensity_and_saturation(img):
 
 if __name__ == "__main__":
     # Load the image
-    img = cv.imread('sample.jpeg')
+    # img = cv.imread('samples/myself_nightshot.jpeg')
+    # img = cv.imread('samples/bridge.jpg')
+    img = cv.imread('samples/cherryblossom.jpg')
     img_he = he_intensity(img)
     img_he_s = he_intensity_and_saturation(img)
     
