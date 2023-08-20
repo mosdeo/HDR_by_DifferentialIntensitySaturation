@@ -3,7 +3,7 @@ import numpy as np
 from functions.diff2d import diff2d
 from functions.transformation import transformation
 from functions.display_effect import display_effect
-from functions.local_correlation_of_intensity_saturation import local_correlation_of_intensity_saturation
+from functions.local_correlation_of_intensity_saturation import *
 
 # THE DIFFERENTIAL SATURATION HISTOGRAM EQUALIZATION
 
@@ -12,7 +12,8 @@ def DSHE(img):
     h, s, v = cv.split(cv.cvtColor(img, cv.COLOR_BGR2HSV))
     diff_img = diff2d(s)
 
-    corr_IS = local_correlation_of_intensity_saturation(s, v)
+    # corr_IS = local_correlation_of_intensity_saturation(s, v)
+    corr_IS = local_correlation_of_intensity_saturation_vectorlize(s, v)
     corr_IS = np.abs(corr_IS)
     prod_img = diff_img * corr_IS
     prod_img = prod_img.astype(np.int64)
