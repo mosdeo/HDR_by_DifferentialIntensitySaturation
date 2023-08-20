@@ -23,3 +23,6 @@ def display_effect(img_before, img_after, title):
     # Save the figure
     plt.savefig('pictures/result_{}.png'.format(title))
     # plt.pause(0.1)
+    plt.close()
+    # release memory
+    fig.clf()
