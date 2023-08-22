@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-from functions.diff2d import diff2d
+from functions.diff2d import diff2d_vectorlize as diff2d
 from functions.transformation import transformation
 from functions.display_effect import display_effect
 from functions.local_correlation_of_intensity_saturation import *
