@@ -78,3 +78,43 @@ local_correlation_of_intensity_saturation_vectorlize: 0.1213228702545166 seconds
 ```
 
 註：向量化由於統一除法，有除以 0 的 RuntimeWarning，但已用```np.nan_to_num```善後，不影響結果。
+
+---
+
+### 向量化加速：diff2d.py
+
+無向量化：
+
+```python
+def diff2d(img):
+```
+
+向量化：
+
+```python
+def diff2d_vectorlize(img):
+```
+
+三個樣本的時間比較：
+
+```bash
+diff2d: 7.152828216552734 seconds
+diff2d: 7.096435070037842 seconds
+
+diff2d: 0.8262782096862793 seconds
+diff2d: 0.844656229019165 seconds
+
+diff2d: 1.5022540092468262 seconds
+diff2d: 1.491786003112793 seconds
+```
+
+```bash
+diff2d_vectorlize: 0.0222930908203125 seconds
+diff2d_vectorlize: 0.020488739013671875 seconds
+
+diff2d_vectorlize: 0.0023682117462158203 seconds
+diff2d_vectorlize: 0.0021829605102539062 seconds
+
+diff2d_vectorlize: 0.005584001541137695 seconds
+diff2d_vectorlize: 0.004849910736083984 seconds
+```
