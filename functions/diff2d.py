@@ -55,5 +55,5 @@ def diff2d_vectorlize(img):
     diff_img = np.sqrt(dHorizontally**2 + dVertically**2).astype(np.int64)
     diff_img = diff_img[1:-1, 1:-1] # 去掉外面補的一圈 0
 
-    print('diff2d: {} seconds'.format(time.time() - start_time))
+    print('diff2d_vectorlize: {} seconds'.format(time.time() - start_time))
     return diff_img
