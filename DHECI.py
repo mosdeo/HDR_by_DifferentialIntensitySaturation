@@ -3,7 +3,7 @@ import numpy as np
 from functions.diff2d import diff2d_vectorlize as diff2d
 from functions.transformation import transformation
 from functions.display_effect import display_effect
-from functions.local_correlation_of_intensity_saturation import *
+from functions.local_correlation_of_intensity_saturation import local_correlation_of_intensity_saturation_vectorlize as local_correlation_of_intensity_saturation
 
 # The DHE for color images (DHECI)
 
@@ -13,8 +13,7 @@ def DHECI(img):
     diff_s = diff2d(s)
     diff_v = diff2d(v)
 
-    # corr_Int_Sat = local_correlation_of_intensity_saturation(s, v)
-    corr_Int_Sat = local_correlation_of_intensity_saturation_vectorlize(s, v)
+    corr_Int_Sat = local_correlation_of_intensity_saturation(s, v)
     corr_Int_Sat_prod_diff_Sat = np.abs(corr_Int_Sat) * diff_s # eq. 4
 
     # Auto resize width to 750, but keep ratio, auto adjust height
